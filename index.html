@@ -16,10 +16,120 @@
 <link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700" rel="stylesheet">
 <!--//fonts-->
+	<style>
+		audio {
+			position: fixed;
+			top: 0;
+			right: 0;
+			width: 300px;
+		}
+		.icon {
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			background-image: url(images/guangdie.png);
+			background-repeat: no-repeat;
+			transition: transform 0.5s ease;
+		}
+
+		.icon.rotate {
+			transform: rotate(360deg);
+		}
+
+		#music-image{
+			animation: rotateArround 3.5s linear 3s infinite alternate;
+			-webkit-animation: rotateArround 3.5s linear 3s infinite alternate;
+			-moz-animation: rotateArround 3.5s linear 3s infinite;
+			-ms-animation: rotateArround 3.5s linear 3s infinite;
+			-o-animation: rotateArround 3.5s linear 3s infinite;
+		}
+
+		@keyframes rotateArround {
+			from {transform: rotateZ(0deg);}
+			to {transform: rotateZ(360deg);}
+		}
+
+		@-webkit-keyframes rotateArround {
+			from {-webkit-transform: rotate(0deg);
+			}
+			to {-webkit-transform: rotate(360deg);}
+		}
+
+		@-moz-keyframes rotateArround {
+			from {-moz-transform: rotate(0deg);}
+			to {-moz-transform: rotate(360deg);}
+		}
+
+		@-ms-keyframes rotateArround {
+			from {-ms-transform: rotate(0deg);}
+			to {-ms-transform: rotate(360deg);}
+		}
+
+		@-o-keyframes rotateArround {
+			from {-o-transform: rotate(0deg);}
+			to {-o-transform: rotate(360deg);}
+		}
+	</style>
+	<script>
+		var isStart = true;
+		function rotateIcon() {
+			var icon = document.getElementById("rotateIcon");
+			icon.classList.toggle("rotate");
+
+			var audio = document.getElementById("bgMusic");
+			audio.pause();
+		}
+
+		window.onload = function(){
+			setInterval("toggleSound()",1);
+		}
+		function toggleSound() {
+			var music = document.getElementById("bgMusic");//获取ID
+			if (music.paused) { //判读是否播放
+				music.paused=false;
+				music.play(); //没有就播放
+				isStart = false;
+			}
+			music.play(); //没有就播放
+		}
+
+		let musicImage = document.getElementById('music-image');
+		let is = 1;
+		musicImage.addEventListener('click', () => {
+			let music = document.getElementById('music');
+			if (is === 0) {
+				is = 1;
+				musicImage.src = 'images/guangdie.png';
+				music.play();
+			} else {
+				is = 0;
+				musicImage.src = 'images/guangdie.png';
+				music.pause();
+			}
+		});
+		if (typeof WeixinJSBridge == "undefined") {
+			document.addEventListener('WeixinJSBridgeReady', function () {
+				document.getElementById('music').play();
+			}, false);
+		} else {
+			WeixinJSBridge.invoke("getNetworkType", {}, function () {
+				document.getElementById('music').play();
+			});
+		}
+		let play = document.addEventListener('touchstart',function () {
+			let music = document.getElementById('music');
+			music.muted=false;
+			musicImage.src = 'images/guangdie.png';
+			document.removeEventListener('touchstart',play);
+		});
+	</script>
 </head>
 <body>
 <!-- header -->
-	<header>
+<audio id="music" style="display: none" class="musicControl" autoplay loop muted src="images/bg1.mp3">
+</audio>
+<img id="music-image" style="position: fixed;z-index: 999;height:40px;right: 30px;top: 30px;" src="images/guangdie.png" alt=""/>
+<header>
 		<div class="container">
 			<!-- nav -->
 			<nav class="navbar navbar-inverse">
@@ -68,7 +178,6 @@
 				<div class="callbacks_container">
 						<ul class="rslides" id="slider3">
 							<li>
-							
 								  <div class="banner_agile-info">
 									  <h3>我们结婚啦！</h3>
 									  <p>LOVE IS THE PROCESS OF MARRIAGE</p>
