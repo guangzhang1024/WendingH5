@@ -254,7 +254,7 @@
 	<!--/counter-->
 <div class="agileinfo_counter_section">
   <div class="wthree_title_agile">
-						        <h3 class="h-t">Wedding <span>Coming Soon</span></h3>
+						        <h3 class="h-t">我们 <span>已结婚</span></h3>
 								<p><i class="fa fa-heart-o" aria-hidden="true"></i></p>
 								
 							</div>
@@ -587,29 +587,53 @@
 	<!-- Countdown-Timer-JavaScript -->
 			<script src="js/simplyCountdown.js"></script>
 			<script>
-				var d = new Date(2023, 4, 29, 11, 0, 0, 0);
+				var d = new Date(2023, 3, 29, 11, 0, 0, 0);
 
 				// default example
 				simplyCountdown('.simply-countdown-one', {
 					year: d.getFullYear(),
-					month: d.getMonth(),
-					day: d.getDate()
+					month: d.getMonth() + 1,
+					day: d.getDate(),
+					words: {
+						days: '天',
+						hours: '小时',
+						minutes: '分',
+						seconds: '秒',
+						pluralLetter: ''
+					},
+					plural: false
 				});
 
 				// inline example
 				simplyCountdown('.simply-countdown-inline', {
 					year: d.getFullYear(),
-					month: d.getMonth(),
+					month: d.getMonth() + 1,
 					day: d.getDate(),
-					inline: true
+					inline: true,
+					words: {
+						days: '天',
+						hours: '小时',
+						minutes: '分',
+						seconds: '秒',
+						pluralLetter: ''
+					},
+					plural: false
 				});
 
 				//jQuery example
 				$('#simply-countdown-losange').simplyCountdown({
 					year: d.getFullYear(),
-					month: d.getMonth(),
+					month: d.getMonth() + 1,
 					day: d.getDate(),
-					enableUtc: false
+					enableUtc: false,
+					words: {
+						days: '天',
+						hours: '小时',
+						minutes: '分',
+						seconds: '秒',
+						pluralLetter: ''
+					},
+					plural: false
 				});
 			</script>
 		<!-- //Countdown-Timer-JavaScript -->
